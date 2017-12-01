@@ -3,12 +3,6 @@ import { Injectable } from '@angular/core';
 import { Push, PushObject, PushOptions } from '@ionic-native/push';
 import { Platform, AlertController } from 'ionic-angular';
 
-/*
-  Generated class for the NotificationProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class NotificationProvider {
 
@@ -22,10 +16,10 @@ export class NotificationProvider {
 
   init(platform: Platform) {
     
-    console.log("Initializing Notification Provider ...");
+    console.log("Inicializando Notification Provider ...");
 
     if (!platform.is('cordova')) {
-      console.warn('Push notifications not initialized. Cordova is not available - Run in physical device');
+      console.warn('Notificações apenas funcionarão no dispositivo físico.');
       return;
     }
 
@@ -41,35 +35,33 @@ export class NotificationProvider {
     const pushObject: PushObject = this.push.init(options);
 
     pushObject.on('registration').subscribe((data: any) => {
-      console.log('device token -> ' + data.registrationId);
+      console.log('DEVICE_TOKEN -> ' + data.registrationId);
       //TODO - send device token to server
     });
 
     pushObject.on('notification').subscribe((data: any) => {
-      console.log('message -> ' + data.message);
-      //if user using app and push notification comes
+      console.log('mensagem -> ' + data.message);
       if (data.additionalData.foreground) {
-        // if application open, show popup
+        // Se o app estiver aberto no dispositivo, 
+        // a notificação aparecerá como um popup
         let confirmAlert = this.alertCtrl.create({
-          title: 'New Notification',
+          title: 'Nova notificação',
           message: data.message,
           buttons: [{
-            text: 'Ignore',
+            text: 'Ignorar',
             role: 'cancel'
           }, {
-            text: 'View',
+            text: 'Visualizar',
             handler: () => {
-              //TODO: Your logic here
-              //INSERIR LÓGICA
+              //TODO: INSERIR LÓGICA AO ABRIR A NOTIFICAÇÃO
             }
           }]
         });
         confirmAlert.present();
       } else {
-        //if user NOT using app and push notification comes
-        //TODO: Your logic on click of push notification directly
-        //INSERIR LÓGICA
-        console.log('Push notification clicked');
+        // Se o app não estiver aberto, a notificação aparecerá na barra superior
+        //TODO: INSERIR LÓGICA AO CLICAR NA NOTIFICAÇÃO
+        console.log('Notificação aberta');
       }
     });
 
