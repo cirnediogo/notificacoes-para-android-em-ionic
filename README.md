@@ -1,4 +1,7 @@
-Passo a passo:
+Como enviar notificações para o app Android desenvolvido em Ionic
+===================================================
+
+### Passo a passo:
 
 Criar app (conectar ao Cordova durante a instalação ou depois):
 
