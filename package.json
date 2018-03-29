@@ -46,7 +46,7 @@
   "cordova": {
     "plugins": {
       "phonegap-plugin-push": {
-        "SENDER_ID": "43874034175"
+        "SENDER_ID": "99999999999"
       },
       "ionic-plugin-keyboard": {},
       "cordova-plugin-whitelist": {},
